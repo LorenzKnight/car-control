@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Carro</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Vista del carro -->
+    <div id="car-container">
+        <div id="car">
+            <div id="car-body"></div>
+            <div id="wheels-front-left" class="front-wheels"></div>
+            <div id="wheels-front-right" class="front-wheels"></div>
+            <div id="wheels-back-left" class="wheels"></div>
+            <div id="wheels-back-right" class="wheels"></div>
+        </div>
+    </div>
+
+    <!-- Panel de Control -->
+    <div id="control-panel">
+        <button id="start-stop">Iniciar/Apagar</button>
+        <button id="lock-unlock">Bloquear/Desbloquear</button>
+        <button id="open-trunk">Abrir/Cerrar Baúl</button>
+        <button id="open-hood">Abrir/Cerrar Cofre</button>
+        <button id="open-sunroof">Abrir/Cerrar Sunroof</button>
+        <button id="open-doors">Abrir/Cerrar Puertas</button>
+        <button id="turn-lights">Prender/Apagar Luces</button>
+        <button id="turn-signals">Poner/Apagar Direccionales</button>
+        <button id="turn-reverse-light">Prender/Apagar Luz de Reversa</button>
+        <div id="kilometer-display">Kilómetros: 0</div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
