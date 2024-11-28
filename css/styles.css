@@ -3,19 +3,38 @@
     background-color: #ccc;
     width: 800px;
     height: 600px;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    position: relative;
+    margin: 30px auto 0;
+}
+
+.mileage {
+    width: 200px;
+    height: 150px;
+    border-radius: 10%;
+    background-color: #fff;
+    border: 2px solid #999;
+    font-size: 36px;
+    color: #666;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 30px auto 0;
+    position: absolute;
+    left: 10px;
+    top: 10px;
 }
 
 #car {
     width: 200px;
     height: 400px;
     background-color: #444;
-    position: relative;
+    position: absolute;
     border-radius: 60px 60px 40px 40px;
     overflow: hidden;
+    right: 300px;
+    top: 100px;
 }
 
 .front-wheels {
@@ -61,7 +80,7 @@
     /* display: flex;
     flex-direction: column;
     align-items: center; */
-    margin: 0 auto;
+    margin: 10px auto 0;
 }
 
 button {
@@ -70,11 +89,6 @@ button {
     cursor: pointer;
     font-size: 14px;
     float: left;
-}
-
-#kilometer-display {
-    margin-top: 10px;
-    font-size: 18px;
 }
 
 /* Para cambiar el color de las luces y otros controles */

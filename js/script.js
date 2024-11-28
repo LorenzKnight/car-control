@@ -69,7 +69,7 @@ document.addEventListener('keydown', (event) => {
 
 // Funciones auxiliares
 function updateKilometerDisplay() {
-    document.getElementById('kilometer-display').textContent = `Kilómetros: ${kilometers.toFixed(1)}`;
+    document.getElementById('kilometer-display').textContent = `${kilometers.toFixed(1)} Km/h`;
 }
 
 function updateLights() {
