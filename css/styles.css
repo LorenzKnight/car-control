@@ -11,11 +11,11 @@
 }
 
 .mileage {
-    width: 200px;
-    height: 150px;
-    border-radius: 10%;
+    width: 160px;
+    height: 100px;
+    /* border-radius: 10%;
     background-color: #fff;
-    border: 2px solid #999;
+    border: 2px solid #999; */
     font-size: 36px;
     color: #666;
     display: flex;

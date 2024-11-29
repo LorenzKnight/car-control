@@ -1,6 +1,12 @@
 // Variables para controlar el carro
 let isRunning = false;
 let kilometers = 0;
+
+let speed = 0; // Velocidad actual del vehículo (cambio de kilometraje)
+let acceleration = 0.1; // Aumento de velocidad al presionar 'ArrowUp'
+let deceleration = 0.1; // Disminución de velocidad al presionar 'ArrowDown'
+let isAccelerating = false;
+
 let doorsLocked = true;
 let sunroofOpen = false;
 let trunkOpen = false;
@@ -57,11 +63,16 @@ document.getElementById('turn-reverse-light').addEventListener('click', () => {
 // Movimiento y control del auto con teclas
 document.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowUp') {
-        kilometers += 0.1; // Adelantar
+        if (!isAccelerating) {
+            isAccelerating = true;
+            speed = acceleration;
+        }
     } else if (event.key === 'ArrowDown') {
-        kilometers -= 0.1; // Retroceder
+        if (!isAccelerating) {
+            isAccelerating = true;
+            speed = -deceleration;
+        }
     } else if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-        // Girar ruedas
         rotateWheels(event.key);
     }
     updateKilometerDisplay();
@@ -155,6 +166,8 @@ document.addEventListener('keyup', (event) => {
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
         straightenWheels(event.key);
         clearInterval(rotationInterval);
+    } else if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+        isAccelerating = false; // Deja de acelerar cuando se suelta la tecla
     }
 });
 
@@ -170,3 +183,21 @@ function getRotationAngle(element) {
     // Calcular el ángulo en grados
     return Math.round(Math.atan2(b, a) * (180 / Math.PI));
 }
+
+function slowDown() {
+    if (!isAccelerating && speed !== 0) {
+        // Si no se está acelerando, disminuir la velocidad lentamente hasta 0
+        speed *= 0.95; // Controla la rapidez con la que disminuye la velocidad
+    }
+
+    // Asegura que la velocidad no sea menor que 0.01
+    if (Math.abs(speed) < 0.01) {
+        speed = 0;
+    }
+
+    kilometers += speed; // Aumentar el kilometraje según la velocidad actual
+    updateKilometerDisplay();
+}
+
+// Usar setInterval para actualizar el kilometraje cada 50ms
+setInterval(slowDown, 50); // Ejecutar cada 50 ms para desacelerar y actualizar el kilometraje
