@@ -7,7 +7,8 @@ let acceleration = 0.1; // Aumento de velocidad al presionar 'ArrowUp'
 let deceleration = 0.1; // Disminución de velocidad al presionar 'ArrowDown'
 let isAccelerating = false;
 
-let doorsLocked = true;
+let doorsLocked = false;
+let isDoorOpen = false;
 let sunroofOpen = false;
 let trunkOpen = false;
 let hoodOpen = false;
@@ -25,6 +26,7 @@ document.getElementById('start-stop').addEventListener('click', () => {
 document.getElementById('lock-unlock').addEventListener('click', () => {
     doorsLocked = !doorsLocked;
     document.getElementById('lock-unlock').textContent = doorsLocked ? 'Desbloquear' : 'Bloquear';
+    console.log(doorsLocked);
 });
 
 document.getElementById('open-trunk').addEventListener('click', () => {
@@ -40,8 +42,18 @@ document.getElementById('open-sunroof').addEventListener('click', () => {
 });
 
 document.getElementById('open-doors').addEventListener('click', () => {
-    if (!doorsLocked) {
-        // Toggle doors open/close here
+    if (doorsLocked) {
+        let door = document.getElementById('front-left-door');
+
+        if (isDoorOpen) {
+            door.style.left = '';
+            door.style.transform = '';
+        } else {
+            door.style.left = '255px';
+            door.style.transform = 'rotate(50deg)';
+        } 
+
+        isDoorOpen = !isDoorOpen;;
     }
 });
 

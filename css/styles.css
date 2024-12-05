@@ -71,6 +71,20 @@
     bottom: 30px;
 }
 
+.doors {
+    width: 3px;
+    height: 100px;
+    background-color: red;
+    position: absolute;
+}
+
+#front-left-door {
+    left: 300px;
+    top: 220px;
+    /* left: 255px;
+    transform: rotate(50deg); */
+}
+
 /* Panel de Control */
 #control-panel {
     background-color: #999;
