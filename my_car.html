@@ -8,27 +8,50 @@
 </head>
 <body>
 
-    <!-- Vista del carro -->
-    <div id="car-container">
-        <div class="mileage" id="kilometer-display">0 Km/h</div>
-        <div id="car">
-            <div id="car-body"></div>
-            <div id="wheels-front-left" class="front-wheels"></div>
-            <div id="wheels-front-right" class="front-wheels"></div>
-            <div id="wheels-back-left" class="wheels"></div>
-            <div id="wheels-back-right" class="wheels"></div>
-        </div>
-        <div id="front-left-door" class="doors"></div>
-    </div>
+	<!-- Vista del carro -->
+	<div id="car-container">
+		<div class="mileage" id="kilometer-display">0 Km/h</div>
+		<div id="car">
+			<div id="front-bumper">
+				<div id="front-left-light" class="front-light"></div>
+				<div id="front-right-light" class="front-light"></div>
+				<div id="front-left-directional" class="front-directional"></div>
+				<div id="front-right-directional" class="front-directional"></div>
+			</div>
+			<div id="wheels-front-left" class="front-wheels"></div>
+			<div id="wheels-front-right" class="front-wheels"></div>
+			<div id="wheels-back-left" class="wheels"></div>
+			<div id="wheels-back-right" class="wheels"></div>
+			<div id="back-bumper">
+				<div id="reverse-left-light" class="reverse-light"></div>
+				<div id="reverse-right-light" class="reverse-light"></div>
+			</div>
+		</div>
+		<div id="front-left-door" class="doors"></div>
+		<div id="back-left-door" class="doors"></div>
+		<div id="front-right-door" class="doors"></div>
+		<div id="back-right-door" class="doors"></div>
+	</div>
 
     <!-- Panel de Control -->
     <div id="control-panel">
-        <button id="start-stop">Iniciar/Apagar</button>
-        <button id="lock-unlock">Bloquear/Desbloquear</button>
-        <button id="open-trunk">Abrir/Cerrar Baúl</button>
-        <button id="open-hood">Abrir/Cerrar Cofre</button>
-        <button id="open-sunroof">Abrir/Cerrar Sunroof</button>
-        <button id="open-doors">Abrir/Cerrar Puertas</button>
+        <div id="control-seccion">
+            <button id="start-stop">Iniciar/Apagar</button>
+            <button id="lock-unlock">Desbloquear</button>
+        </div>
+        <div id="control-seccion">
+            <button id="open-front-left-door">Abrir Puertas FL</button>
+            <button id="open-front-right-door">Abrir Puertas FR</button>
+            <button id="open-back-left-door">Abrir Puertas BL</button>
+            <button id="open-back-right-door">Abrir Puertas BR</button>
+        </div>
+        <div id="control-seccion">
+            <button id="open-trunk">Abrir/Cerrar Baúl</button>
+            <button id="open-hood">Abrir/Cerrar Cofre</button>
+            <button id="open-sunroof">Abrir/Cerrar Sunroof</button>
+        </div>
+        
+        
         <button id="turn-lights">Prender/Apagar Luces</button>
         <button id="turn-signals">Poner/Apagar Direccionales</button>
         <button id="turn-reverse-light">Prender/Apagar Luz de Reversa</button>

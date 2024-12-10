@@ -8,12 +8,15 @@ let deceleration = 0.1; // Disminución de velocidad al presionar 'ArrowDown'
 let isAccelerating = false;
 
 let doorsLocked = false;
-let isDoorOpen = false;
+let isFLDoorOpen = false;
+let isBLDoorOpen = false;
+let isFRDoorOpen = false;
+let isBRDoorOpen = false;
+
 let sunroofOpen = false;
 let trunkOpen = false;
 let hoodOpen = false;
 let lightsOn = false;
-let reverseLightsOn = false;
 let turnSignals = false;
 let doorStates = {};
 
@@ -25,7 +28,7 @@ document.getElementById('start-stop').addEventListener('click', () => {
 
 document.getElementById('lock-unlock').addEventListener('click', () => {
     doorsLocked = !doorsLocked;
-    document.getElementById('lock-unlock').textContent = doorsLocked ? 'Desbloquear' : 'Bloquear';
+    document.getElementById('lock-unlock').textContent = doorsLocked ? 'Bloquear' : 'Desbloquear';
     console.log(doorsLocked);
 });
 
@@ -41,25 +44,58 @@ document.getElementById('open-sunroof').addEventListener('click', () => {
     if (!doorsLocked) sunroofOpen = !sunroofOpen;
 });
 
-document.getElementById('open-doors').addEventListener('click', () => {
-    if (doorsLocked) {
-        let door = document.getElementById('front-left-door');
+function toggleDoor(doorId, isDoorOpen, position, rotation) {
+	let door = document.getElementById(doorId);
 
-        if (isDoorOpen) {
-            door.style.left = '';
-            door.style.transform = '';
-        } else {
-            door.style.left = '255px';
-            door.style.transform = 'rotate(50deg)';
-        } 
+	if (isDoorOpen) {
+		door.style[position] = '';
+		door.style.transform = '';
+	} else {
+		door.style[position] = '255px';
+		door.style.transform = `rotate(${rotation}deg)`;
+	}
 
-        isDoorOpen = !isDoorOpen;;
-    }
+	return !isDoorOpen;
+}
+
+document.getElementById('open-front-left-door').addEventListener('click', () => {
+	if (!doorsLocked) {
+		isFLDoorOpen = toggleDoor('front-left-door', isFLDoorOpen, 'left', 50);
+	}
+});
+
+document.getElementById('open-back-left-door').addEventListener('click', () => {
+	if (!doorsLocked) {
+		isBLDoorOpen = toggleDoor('back-left-door', isBLDoorOpen, 'left', 50);
+	}
+});
+
+document.getElementById('open-front-right-door').addEventListener('click', () => {
+	if (!doorsLocked) {
+		isFRDoorOpen = toggleDoor('front-right-door', isFRDoorOpen, 'right', -50);
+	}
+});
+
+document.getElementById('open-back-right-door').addEventListener('click', () => {
+	if (!doorsLocked) {
+		isBRDoorOpen = toggleDoor('back-right-door', isBRDoorOpen, 'right', -50);
+	}
 });
 
 document.getElementById('turn-lights').addEventListener('click', () => {
     lightsOn = !lightsOn;
-    updateLights();
+
+	let frontLights = document.getElementsByClassName('front-light');
+	if (lightsOn)
+	{
+		for (let light of frontLights) {
+			light.style.backgroundColor = 'rgb(226, 226, 226)';
+		}
+	} else {
+		for (let light of frontLights) {
+			light.style.backgroundColor = '';
+		}
+	}
 });
 
 document.getElementById('turn-signals').addEventListener('click', () => {
@@ -67,27 +103,31 @@ document.getElementById('turn-signals').addEventListener('click', () => {
     updateTurnSignals();
 });
 
-document.getElementById('turn-reverse-light').addEventListener('click', () => {
-    reverseLightsOn = !reverseLightsOn;
-    updateReverseLight();
-});
-
 // Movimiento y control del auto con teclas
 document.addEventListener('keydown', (event) => {
-    if (event.key === 'ArrowUp') {
-        if (!isAccelerating) {
-            isAccelerating = true;
-            speed = acceleration;
-        }
-    } else if (event.key === 'ArrowDown') {
-        if (!isAccelerating) {
-            isAccelerating = true;
-            speed = -deceleration;
-        }
-    } else if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-        rotateWheels(event.key);
-    }
-    updateKilometerDisplay();
+	let reverseLights = document.getElementsByClassName('reverse-light');
+	if (event.key === 'ArrowUp') {
+		if (!isAccelerating) {
+			isAccelerating = true;
+			speed = acceleration;
+
+			for (let light of reverseLights) {
+				light.style.backgroundColor = '';
+			}
+		}
+	} else if (event.key === 'ArrowDown') {
+		if (!isAccelerating) {
+			isAccelerating = true;
+			speed = -deceleration;
+
+			for (let light of reverseLights) {
+				light.style.backgroundColor = '#FFFFFF';
+			}
+		}
+	} else if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+		rotateWheels(event.key);
+	}
+	updateKilometerDisplay();
 });
 
 // Funciones auxiliares
@@ -95,18 +135,9 @@ function updateKilometerDisplay() {
     document.getElementById('kilometer-display').textContent = `${kilometers.toFixed(1)} Km/h`;
 }
 
-function updateLights() {
-    document.getElementById('turn-lights').classList.toggle('lights-on', lightsOn);
-}
-
 function updateTurnSignals() {
     // Actualizar dirección de las luces direccionales
 }
-
-function updateReverseLight() {
-    // Actualizar la luz de reversa
-}
-
 
 let rotationInterval;
 let currentRotation = 0;
