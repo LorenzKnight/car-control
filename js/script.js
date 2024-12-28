@@ -1,24 +1,22 @@
 // Variables para controlar el carro
 let isRunning = false;
 let kilometers = 0;
-
-let speed = 0; // Velocidad actual del vehículo (cambio de kilometraje)
-let acceleration = 0.1; // Aumento de velocidad al presionar 'ArrowUp'
-let deceleration = 0.1; // Disminución de velocidad al presionar 'ArrowDown'
+let speed = 0;
+let acceleration = 0.1;
+let deceleration = 0.1;
 let isAccelerating = false;
-
-let doorsLocked = false;
+let doorsLocked = true;
 let isFLDoorOpen = false;
 let isBLDoorOpen = false;
 let isFRDoorOpen = false;
 let isBRDoorOpen = false;
-
 let sunroofOpen = false;
 let trunkOpen = false;
 let hoodOpen = false;
 let lightsOn = false;
 let turnSignals = false;
-let doorStates = {};
+let doorStates = [];
+let intervalIds = [];
 
 // Lógica para los botones del carro
 document.getElementById('start-stop').addEventListener('click', () => {
@@ -86,8 +84,7 @@ document.getElementById('turn-lights').addEventListener('click', () => {
     lightsOn = !lightsOn;
 
 	let frontLights = document.getElementsByClassName('front-light');
-	if (lightsOn)
-	{
+	if (lightsOn) {
 		for (let light of frontLights) {
 			light.style.backgroundColor = 'rgb(226, 226, 226)';
 		}
@@ -213,6 +210,41 @@ document.addEventListener('keyup', (event) => {
         isAccelerating = false; // Deja de acelerar cuando se suelta la tecla
     }
 });
+
+document.getElementById('brake').addEventListener('click', () => {
+    console.log('aqui');
+});
+document.getElementById('turn-signals').addEventListener('click', () => {
+    directionals = ['front-left-directional', 'front-right-directional', 'back-left-directional', 'back-right-directional'];
+    colors = ['gray', 'yellow'];
+    
+    toggleBlinking(directionals, 500, colors);
+});
+
+function toggleBlinking(divIds, interval = 500, colors = ['gray', 'yellow']) {
+    if (intervalIds.length > 0) {
+        intervalIds.forEach(intervalId => clearInterval(intervalId));
+        intervalIds = [];
+        divIds.forEach(divId => {
+            const directionalDiv = document.getElementById(divId);
+            if (directionalDiv) {
+                directionalDiv.style.backgroundColor = colors[0];
+            }
+        });
+    } else {
+        divIds.forEach(divId => {
+            const directionalDiv = document.getElementById(divId);
+            if (directionalDiv) {
+                let isPrimaryColor = false;
+                const intervalId = setInterval(() => {
+                    directionalDiv.style.backgroundColor = isPrimaryColor ? colors[0] : colors[1];
+                    isPrimaryColor = !isPrimaryColor;
+                }, interval);
+                intervalIds.push(intervalId);
+            }
+        });
+    }
+}
 
 function getRotationAngle(element) {
     const matrix = window.getComputedStyle(element).transform;

@@ -39,7 +39,7 @@
 #front-bumper {
 	width: 200px;
     height: 20px;
-    background-color: orange;
+    /* background-color: orange; */
     position: absolute;
     top: 1px;
 }
@@ -77,6 +77,12 @@
 	top: 0;
 	right: 15px;
 	border-radius: 0 50px 0 0;
+}
+#back-left-directional {
+    left: 5px;
+}
+#back-right-directional {
+    right: 5px;
 }
 
 #back-bumper {
